@@ -22,7 +22,7 @@ class UserBase(BaseModel):
     email: EmailStr = Field(...)
 
 class UserLogin(UserBase):
-        password: str = Field(
+    password: str = Field(
         ...,
         min_length=8,
         max_length=64
@@ -41,6 +41,13 @@ class User(UserBase):
     )
     birth_date: Optional[date] = Field(default=None)
 
+class UserRegister(User):
+    password: str = Field(
+    ...,
+    min_length=8,
+    max_length=64
+    )
+
 class Tweet(BaseModel):
     tweet_id: UUID = Field(...)
     content: str = Field(
@@ -54,7 +61,7 @@ class Tweet(BaseModel):
 
 #* Path operations
 
-## Users
+##* Users
 
 ### Register a user
 @app.post(
@@ -64,8 +71,26 @@ class Tweet(BaseModel):
     summary="Register a User",
     tags=["Users"]
 )
-def signup():
-    pass
+def signup(
+    
+):
+    """# Signup
+
+    This path operation registers a user in the app
+
+    Parameters:
+    - Request body parameter
+        - user: register
+
+    Returns:
+    - Json with the basic user information:
+        - user_id: UUID
+        - email: str
+        - first_name: str
+        - last_name: str
+        - birthday: str
+    """
+
 
 ### Login a user
 @app.post(
@@ -122,7 +147,7 @@ def delete_a_user():
 def update_a_user():
     pass
 
-## Tweets
+##* Tweets
 
 ### Show all tweets
 @app.get(
