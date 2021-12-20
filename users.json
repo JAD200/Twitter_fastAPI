@@ -8,19 +8,11 @@
         "password": "holaoherjhoerhoier"
     },
     {
-        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afb7",
         "email": "miguel@example.com",
         "fist_name": "Miguel",
         "last_name": "Torres",
         "birth_date": "2021-12-18",
         "password": "holafweMIGUELrhoier"
-    },
-    {
-        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "email": "rocio@example.com",
-        "fist_name": "Rocio",
-        "last_name": "Fabiani",
-        "birth_date": "2021-12-18",
-        "password": "HOLA QUE TAL"
     }
 ]

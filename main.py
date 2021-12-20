@@ -194,8 +194,43 @@ def show_a_user(
     summary='Delete a user',
     tags=['Users']
 )
-def delete_a_user():
-    pass
+def delete_a_user(user_id: str = Path(
+        ...,
+        title='User ID',
+        description='This is the ID of the user to be deleted',
+        example='3fa85f64-5717-4562-b3fc-2c963f55afb7'
+    ),
+):
+    """# Delete a user
+
+    This path operation deletes a user in the app
+
+    Parameters:
+    - user_id: str
+
+    Returns:
+    - Json with deleted user data:
+        - user_id: UUID
+        - content: str
+        - created_at: datetime
+        - updated_at: Optional[datetime]
+        - by: User
+    """
+    with open('users.json', 'r+', encoding='utf-8') as f:
+        deletion = json.loads(f.read())
+        id = str(user_id)
+        for data in deletion:
+            if data['user_id'] == id:
+                deletion.remove(data)
+                with open("users.json", "w", encoding="utf-8") as f:
+                    f.seek(0)
+                    f.write(json.dumps(deletion))
+                return data
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="¡This user ID doesn't exist!"
+            )
 
 ### Update a user
 @app.put(
@@ -339,7 +374,7 @@ def delete_a_tweet(
     This path operation deletes a tweet in the app
 
     Parameters:
-    - tweet_id: UUID
+    - tweet_id: str
 
     Returns:
     - Json with deleted tweet data:
