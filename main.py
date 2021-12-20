@@ -32,6 +32,10 @@ class UserLogin(UserBase):
         max_length=64
     )
 
+class LoginOut(BaseModel):
+    email: EmailStr = Field(...)
+    message: str = Field(default="Login Successful!")
+
 class User(UserBase):
     fist_name: str = Field(
         ...,
@@ -62,8 +66,6 @@ class Tweet(BaseModel):
     created_at: datetime = Field(default=datetime.now())
     updated_at: Optional[datetime] = Field(default=None)
     by: User = Field(...)
-
-#* Functions
 
 #* Path operations
 
@@ -107,13 +109,37 @@ def signup(user: UserRegister = Body(...)):
 ### Login a user
 @app.post(
     path='/login',
-    response_model=User,
+    response_model=LoginOut,
     status_code=status.HTTP_200_OK,
     summary='Login a user',
     tags=['Users']
 )
-def login():
-    pass
+def login(
+    email: EmailStr = Form(..., description='User email'),
+    password: str = Form(..., description='User account password')
+):
+    """# User login
+
+    This path operation is the login for an existing user in the app
+
+    Parameters:
+    - Request body parameter
+        - email: EmailStr
+        - password: str
+
+    Returns:
+    - Different message with the login information
+    """
+    with open("users.json", "r", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        for user in results:
+            if email == user['email'] and password == user['password']:
+                return LoginOut(email=email)
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail="Login Unsuccessful!")
+
 
 ### Show all users
 @app.get(
@@ -194,7 +220,8 @@ def show_a_user(
     summary='Delete a user',
     tags=['Users']
 )
-def delete_a_user(user_id: str = Path(
+def delete_a_user(
+    user_id: str = Path(
         ...,
         title='User ID',
         description='This is the ID of the user to be deleted',
@@ -240,8 +267,53 @@ def delete_a_user(user_id: str = Path(
     summary='Update a user',
     tags=['Users']
 )
-def update_a_user():
+def update_a_user(
+    user_id: str = Path(
+        ...,
+        title='User ID',
+        description='This is the ID of the user to be deleted',
+        example='3fa85f64-5717-4562-b3fc-2c963f66afa6'
+    ),
+    user: UserRegister = Body(...)
+):
+    # """# Update user information
+
+    # This path operation updates an existing user information in the app
+
+    # Parameters:
+    # - Path body parameters
+    #     - user_id: UUID
+    #     - user: UserRegister
+
+    # Returns:
+    # - Json with the basic user information:
+    #     - user_id: UUID
+    #     - email: str
+    #     - first_name: str
+    #     - last_name: str
+    #     - birth_date: datetime
+    # """
+    # with open("users.json", "r+", encoding="utf-8") as f:
+    #     user_id = str(user_id)
+    #     user_dict = user.dict()
+    #     user_dict["user_id"] = str(user_dict["user_id"])
+    #     user_dict["birth_date"] = str(user_dict["birth_date"])
+    #     with open("users.json", "r+", encoding="utf-8") as f:
+    #         results = json.loads(f.read())
+    #         for user in results:
+    #             if user["user_id"] == user_id:
+    #                 results.remove(user)
+    #                 results.append(user_dict)
+    #                 f.seek(0)
+    #                 f.write(json.dumps(results))
+    #                 return user
+    #         else:
+    #             raise HTTPException(
+    #             status_code=status.HTTP_404_NOT_FOUND,
+    #             message="¡This user doesn't exist!"
+    #             )
     pass
+
 
 ##* Tweets
 
