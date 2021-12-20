@@ -15,7 +15,7 @@ from pydantic import Field
 from fastapi import FastAPI
 from fastapi import status
 from fastapi import HTTPException
-from fastapi import Body, Query, Path
+from fastapi import Body, Query, Path, Form
 
 app = FastAPI()
 
@@ -307,7 +307,8 @@ def delete_a_tweet(
     Parameters:
     - tweet_id: UUID
 
-    Returns a json with deleted tweet data:
+    Returns:
+    - Json with deleted tweet data:
         - tweet_id: UUID
         - content: str
         - created_at: datetime
@@ -337,5 +338,51 @@ def delete_a_tweet(
     summary="Update a Tweet",
     tags=["Tweets"]
 )
-def update_a_tweet():
-    pass
+def update_a_tweet(
+    tweet_id: UUID = Path(
+            ...,
+            title="Tweet ID",
+            description="This is the tweet ID",
+            example="3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        ),
+        content: str = Form(
+        ...,
+        min_length=1,
+        max_length=256,
+        title="Tweet content",
+        description="This is the content of the tweet",
+        )
+    ):
+    """
+    # Update Tweet content
+
+    This path operation updates the information of a tweet in the app and saves it in the database
+
+    Parameters:
+    - tweet_id: UUID
+    - contet:str
+
+    Returns a json with:
+    - tweet_id: UUID
+    - content: str
+    - created_at: datetime
+    - updated_at: datetime
+    - by: user: User
+    """
+    tweet_id = str(tweet_id)
+    with open("tweets.json", "r+", encoding="utf-8") as f:
+        results = json.loads(f.read())
+    for tweet in results:
+        if tweet["tweet_id"] == tweet_id:
+            tweet['content'] = content
+            tweet['updated_at'] = str(datetime.now())
+            print(tweet)
+            with open("tweets.json", "w", encoding="utf-8") as f:
+                f.seek(0)
+                f.write(json.dumps(results))
+            return tweet
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="¡This tweet_id doesn't exist!"
+        )

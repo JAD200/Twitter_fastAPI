@@ -1,9 +1,9 @@
 [
     {
         "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "content": "This is the first tweet of the history",
+        "content": "This is the first update of the first tweet of the history",
         "created_at": "2021-12-18 18:41:08.351741",
-        "updated_at": "2021-12-18 21:41:47.540000+00:00",
+        "updated_at": "2021-12-20 15:15:28.375283",
         "by": {
             "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "email": "juan@example.com",
@@ -18,7 +18,7 @@
         "created_at": "2021-12-18 18:41:08.351741",
         "updated_at": "2021-12-18 21:41:47.540000+00:00",
         "by": {
-            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afb7",
             "email": "miguel@example.com",
             "fist_name": "Miguel",
             "last_name": "Di Pasquo",
@@ -31,7 +31,7 @@
         "created_at": "2021-12-18 18:41:08.351741",
         "updated_at": "2021-12-18 21:41:47.540000+00:00",
         "by": {
-            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f55afb7",
             "email": "rocio@example.com",
             "fist_name": "Rocio",
             "last_name": "Fabiani",
