@@ -135,10 +135,11 @@ def login(
         for user in results:
             if email == user['email'] and password == user['password']:
                 return LoginOut(email=email)
-            else:
-                raise HTTPException(
-                    status_code=status.HTTP_409_CONFLICT,
-                    detail="Login Unsuccessful!")
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="Login Unsuccessful!"
+            )
 
 
 ### Show all users
