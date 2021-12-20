@@ -63,6 +63,8 @@ class Tweet(BaseModel):
     updated_at: Optional[datetime] = Field(default=None)
     by: User = Field(...)
 
+#* Functions
+
 #* Path operations
 
 ##* Users
@@ -149,8 +151,40 @@ def show_all_users():
     summary='Show a user',
     tags=['Users']
 )
-def show_a_user():
-    pass
+def show_a_user(
+    user_id: str = Path(
+        ...,
+        title='User ID',
+        description='This is the ID of the user to be shown',
+        example='3fa85f64-5717-4562-b3fc-2c963f66afa6'
+    )
+):
+    """# Show a user
+
+    This path operation shows a user in the app
+
+    Parameters:
+    - user_id: str
+
+    Returns:
+    - Json with a user information in the app, with the following keys:
+        - user_id: UUID
+        - email: str
+        - first_name: str
+        - last_name: str
+        - birth_date: datetime
+    """
+    with open('users.json', 'r', encoding='utf-8') as f:
+        results = json.loads(f.read())
+        id = str(user_id)
+        for data in results:
+            if data["user_id"] == id:
+                return data
+            else:
+                raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"¡This user ID doesn't exists!"
+            )
 
 ### Delete a user
 @app.delete(
@@ -262,7 +296,7 @@ def show_a_tweet(
     This path operation shows a tweet in the app
 
     Parameters:
-    - tweet_id: UUID
+    - tweet_id: str
 
     Returns:
     - Json with a tweet in the app, with the following keys:
