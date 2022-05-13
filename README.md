@@ -1,6 +1,6 @@
 # Twitter API with fastAPI
-[![Python logo](https://i.imgur.com/fDkhooA.png "Python logo")](https://www.python.org/)
-[![FastAPI](https://i.imgur.com/nNMV1dS.png?2 "FastAPI")](https://fastapi.tiangolo.com/)
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/jad200/Twitter_fastAPI?style=flat-square">
+
 ## Content
 
 1. Forms
@@ -21,4 +21,12 @@
 ## Description
 This is an API that tries to emulate the behaviour of Twitter´s backend using fastAPI on Python
 
-This was made by [Juan Di Pasquo](https://twitter.com/JADiPasquo "Juan Di Pasquo") from a course of 💚[Platzi](http://platzi.com "Platzi")💚
+------------
+
+[![Python logo](https://i.imgur.com/fDkhooA.png "Python logo")](https://www.python.org/)
+[![FastAPI logo](https://i.imgur.com/nNMV1dS.png?2 "FastAPI")](https://fastapi.tiangolo.com/)
+
+### Made by [Juan Agustin Di Pasquo](https://linkedin.com/in/juan-agustin-di-pasquo-jad " Juan Agustin Di Pasquo") 
+<a href='https://github.com/JAD200/Twitter_fastAPI'><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jad200/Twitter_FastAPI?style=social"></a>
+<a href='https://github.com/JAD200'><img alt="GitHub followers" src="https://img.shields.io/github/followers/jad200?style=social"></a>
+### From a course of 💚[Platzi](http://platzi.com "Platzi")💚
